@@ -1,0 +1,89 @@
+{% if settings.category_description_position == 'before_products' and current_page == null %}
+  {% if filter.description %}
+    <div class="collection-description at-top editor">
+      {{ filter.description | editable }}
+    </div>
+  {% elsif collection.description %}
+    <div class="collection-description at-top editor">
+      {{ collection.description | editable }}
+    </div>
+  {% endif %}
+{% endif %}
+{% assign display_filter = false  %}
+{% paginate products by 24 %}
+{% include "collection_filter_check" %}
+{% assign hide_class = display_filter | default: "hidden" | replace: 'true','' %}
+    <div class="toolbar collection-toolbar at-top{% if collection.properties.size == 0 %} hidden{% endif%}">
+      <div class="toolbar-inner is-between">
+
+          <div class="filter-collapse {{ hide_class }}">
+            <button type="button" class="filter-panel-open-sidebar button is-secondary js-open-filter" data-filter-caption="{{ messages.filter_heading }}">
+              <span class="filter-collapse__label">
+                {{ messages.filter_heading }}</span>
+            </button>
+
+          </div>
+      </div>
+    </div>
+        {% if products.size > 1 %}
+          <div class="collection-order-wrapper">
+<form class="collection-order" action="{{ collection.url }}" method="get">
+            <div class="row">
+            	<div class="cell-6 cell-12-sm">{% include "collection_order", hide_page_size: true %}</div>
+              	<div class="cell-6 text-right">
+                    <div class="page_size hidden-sm"><span class="title">{{messages.label_limit}}:</span>
+                        <a href="#"{% if page_size == '24' %} class="active" {% endif %}>24</a>
+                        <input name="page_size" type="hidden" id="page_size_24" value="24" disabled="disabled" />
+                        <a href="#"{% if page_size == '36' %} class="active" {% endif %}>36</a>
+                        <input name="page_size" type="hidden" id="page_size_36" value="36" disabled="disabled" />
+                        <a href="#"{% if page_size == '48' %} class="active" {% endif %}>48</a>
+                        <input name="page_size" type="hidden" id="page_size_48" value="48" disabled="disabled" />
+                    </div>  
+                    {% comment %}<!--div class="grid_list"><span class="title">Показывать как:</span>
+                        <a href="#grid" class="products_grid active"><i class="fa fa-th-large" aria-hidden="true"></i></a>
+                      	<a href="#list" class="products_list"><i class="fa fa-align-justify" aria-hidden="true"></i></a>
+                    </div-->{% endcomment %}
+              	</div>
+            </div>
+</form>  
+          </div>
+        {% endif %}
+
+
+  {% include "collection_products" %}
+
+  {% if products.size > 1 %}
+    <div class="toolbar collection-toolbar at-bottom">
+      <div class="toolbar-inner">
+        <div class="pagination-wrapper">
+          {% include "pagination" %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+
+{% endpaginate %}
+
+{% if settings.category_description_position == 'after_products' and current_page == null %}
+  <div class="collection-description at-bottom editor">
+    {% if filter.description %}
+      {{ filter.description | editable }}
+    {% elsif collection.description %}
+      {{ collection.description | editable }}
+    {% endif %}
+  </div>
+{% endif %}
+
+
+  {% if current_page == null %}
+    {% if filter.seo_description %}
+      <div class="collection-description is-seo editor">
+        {{ filter.seo_description | editable }}
+      </div>
+
+      {% elsif collection.seo_description %}
+      <div class="collection-description is-seo editor">
+        {{ collection.seo_description | editable }}
+      </div>
+      {% endif %}
+  {% endif %}

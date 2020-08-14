@@ -1,0 +1,61 @@
+<div class="product-info">
+
+  <form class="" action="{{ cart_url }}" method="post" data-main-form data-product-id="<%= id %>">
+  <h1 class="product-title"><a href="<%= url %>"><%= title %></a></h1>
+
+  <div class="product-prices">
+    <% if (variants[0].old_price){ %>
+    <div class="product-old_price">
+      <%= Shop.money.format(variants[0].old_price) %>
+    </div>
+    <% } %>
+    <div class="product-price">
+      <span class="js-product-price"><%= Shop.money.format( variants[0].price ) %></span>
+    </div>
+  </div>
+
+  <% if (variants.length > 1){ %>
+    <select name="variant_id" data-product-variants>
+      <% _.forEach(variants, function (variant){ %>
+      <option value="<%= variant.id %>"><%= variant.title %></option>
+      <% }) %>
+    </select>
+  <% }else{ %>
+    <input type="hidden" name="variant_id" value="<%= variants[0].id %>" >
+  <% } %>
+    
+<div class="product-control" data-compare="<%= id %>">
+  <div class="product-buy">
+    <div class="counter js-variant-counter" data-quantity>
+      <button type="button" data-quantity-change="-1" class="counter-button is-count-down"></button>
+      <input type="text" value="1" name="quantity" class="counter-input"/>
+      <button type="button" data-quantity-change="1" class="counter-button is-count-up"></button>
+    </div>
+    <button type="submit" data-item-add class="button is-primary in-product">{{ messages.button_to_cart }}</button>
+  </div>      
+</div>
+
+  <% if(short_description){ %>
+  <div class="product-short_description">
+    <%= short_description %>
+  </div>
+  <% } %>
+
+  <% if(parameters){ %>
+    <div class="props">
+      <% _.forEach(parameters, function (property){  %>
+        <div class="property">
+          <label><span><%= property.title %></span></label>
+          <span>
+            <% _.forEach(property.characteristics, function (characteristic, index){  %>
+              <%= characteristic.title %><% if(index + 1 < _.size(property.characteristics)){ %>, <% } %>
+            <% }) %>
+          </span>
+        </div>
+      <% }) %>
+     </div>
+  <% } %>
+
+
+  </form>
+</div>

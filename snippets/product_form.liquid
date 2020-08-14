@@ -1,0 +1,60 @@
+<form class="product-form" action="{{ cart_url }}" data-product-id="{{ product.id }}" data-main-form data-recently-view="{{ product.id }}">
+
+  <!--div class="product-sku-wrapper js-product-sku-wrapper">
+    <span class="label-article">{{ messages.label_article }}:</span>
+    <span class="js-product-sku">{{ product.variants.first.sku }}</span>
+  </div-->
+
+  <div class="product-prices on-page">
+    {% if product.old_price > product.price %}
+    <div class="old-price js-product-old-price on-page">
+        {{ product.old_price | money }}
+    </div>
+    {% endif %}
+    <div class="price js-product-price on-page">{{ product.price | money }}</div>
+  </div>
+  
+  <div class="product-option-selectors option-selectors">
+    {% if product.show_variants? %}
+      <select name="variant_id" data-product-variants>
+        {% for variant in product.variants %}
+          <option value="{{ variant.id }}">{{ variant.title | escape }}</option>
+        {% endfor %}
+      </select>
+    {% else %}
+      <input type="hidden" name="variant_id" value="{{ product.variants.first.id }}">
+    {% endif %}
+  </div>
+
+  <div class="product-control on-page" data-compare="{{ product.id }}">
+
+
+	{% include "product_counter", start_quantity: product.quantity %}
+    
+    <button class="product-button button is-primary  js-variant-shown" type="submit" data-item-add><span class="button-text">{{ messages.button_to_cart }}</span></button>
+
+    <div class="notice is-info js-variant-hidden hide" style="display: none;">{{ messages.product_not_available }}</div>
+
+    <button class="product-button button is-secondary js-variant-preorder hide" style="display: none;" type="button"><span class="button-text">{{ messages.button_preorder }}</span></button>
+
+    {% if account.quick_checkout.enabled %}
+      <button type="button" class="product-button is-quick-checkout button is-secondary" data-quick-checkout>{{ account.quick_checkout.button_title }}</button>
+    {% endif %}
+
+    {% unless settings.product_compare_hide %}
+      {% unless product.is_bundle %}
+        <div class="compare-control">
+          <button class="compare-link js-compare-add " data-compare-add="{{ product.id }}">
+            <span class="link-text">{{ messages.button_add_comparison }}</span>
+          </button>
+
+          <button class="compare-link js-compare-delete hide" data-compare-delete="{{ product.id }}">
+            <span class="link-text">{{ messages.button_remove_comparison }}</span>
+          </button>
+        </div>
+      {% endunless %}
+    {% endunless %}
+
+  </div>
+  
+</form>

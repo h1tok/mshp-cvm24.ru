@@ -1,0 +1,28 @@
+<div class="product-gallery">
+  <div class="gallery-main-wrapper">
+    <a href="<%= url %>" class="image-container gallery" title="<%= title %>" data-gallery-count="1">
+      <img src="<%= images[0].large_url %>" alt="<%= title %>" class="slide-image">
+    </a>
+  </div>
+  <!-- Для тыкалок js -->
+  <% if (images.length > 1) { %>
+    <div class="gallery-thumbs-wrapper  hidden-sm">
+      <div class="gallery-thumbs" data-slider="gallery-thumbs">
+        <% if (images.length > 5) { %>
+          <div class="product-slider-controls gallery-controls controls-above-gallery" data-slider-controls>
+            <button class="product-slider-prev" data-slider-prev></button>
+            <button class="product-slider-next" data-slider-next></button>
+          </div>
+        <% } %>
+
+        <% _.forEach(images, function (image, index){ %>
+          <div data-slider-slide >
+            <a class="slide-inner image-container<% if(index == 0) { %> is-checked<% }%> is-square js-copy-src" data-gallery-count="<%= index %>" data-image-large="<%= image.large_url %>"  title="<%= title %>">
+              <img src="<%= image.small_url %>" class="slide-image" data-slider-lazy>
+            </a>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  <% } %>
+</div>

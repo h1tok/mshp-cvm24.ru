@@ -1,0 +1,80 @@
+
+{% if bundle_component %}
+  {% assign hidden_form = 'hidden' %}
+  {% assign product = component.product  %}
+{% endif %}
+
+<div class="product-card {{ card_class }}">
+  <div class="product-card-inner">
+
+    <a href="{{ product.url }} "class="product-card-photo image-container is-square " title="{{ product.title }}">
+      {% if bundle_component %}
+        {% assign image = bundle_component.variant.first_image.medium_url %}
+      {% else %}
+        {% assign image = product.first_image.medium_url %}
+      {% endif %}
+      <img src="{{ image }}" title="{{ bundle_component.product.title }}" alt="{{ product.title }}" class="product-card-image">
+    </a>
+
+  {% unless bundle_component %}
+    {% include "product_labels", product: product, bundle_component: bundle_component %}
+  {% endunless %}
+    
+  <div class="product-title">  
+  {% if bundle_component and bundle_component.product.variants.size > 1 %}
+    {{  bundle_component.product.title }} ({{ bundle_component.variant.title }})
+  {% else %}
+    <a href="{{ product.url }}" class="product-link">{{ product.title }}</a>
+  {% endif %}
+  </div>
+    <div class="product-card-price product-prices in-card">
+      <div class="price in-card">
+        {% if bundle_component %}
+          {% if bundle_component.is_free %}
+            {{ messages.bundle_is_free }}
+          {% else %}
+            {{ bundle_component.quantity }} × {{ bundle_component.variant.price | money }}
+          {% endif %}
+
+        {% elsif product.price_varies? %}
+          {{ messages.label_from | downcase }}
+          {{ product.price_min | money }}
+        {% else %}
+          {{ product.price | money }}
+        {% endif %}
+
+      </div>
+    </div>
+  <form class="product-cart-control {{ hidden_form }} {% comment %}{% unless product.variants.size > 1 %}card-control-oneline{% endunless %}{% endcomment %}" method="post" action="{{ cart_url }}" data-product-id="{{ product.id }}">
+
+    <input type="hidden" name="variant_id" value="{{ product.variants.first.id }}">
+    <input type="hidden" name="quantity" class="counter-input input-number input-field" value="1"/>
+    
+    
+      <a class="button is-secondary" href="{{ product.url }}" data-quick-view="{{ product.id }}">{{ messages.quick_look }}</a>
+    <!-- Если больше 1 модификации -->
+  {% if product.variants.size > 1 %}
+      <a class="button is-primary" href="#" data-choose-options="{{ product.id }}"><span class="button-text">{{ messages.choose_options }}</span></a>
+  {% else %}
+    {% if product.available %}
+    <!-- больше 0 -->
+      <button class="button button-buy is-primary" type="submit" data-item-add><span class="button-text">{{ messages.button_to_cart }}</span></button>
+    {% else %}
+      <!-- не больше 0 -->
+      {% if settings.product_not_available contains 'shown' %}
+        <button class="button button-buy is-primary" type="submit" data-item-add><span class="button-text">{{ messages.button_to_cart }}</span></button>
+      {% else %}
+        <a class="button button-buy is-primary " href="{{ product.url }}" title='{{ product.title }}'><span class="button-text">{{ messages.button_more }}</span></a>
+      {% endif %}
+    {% endif %}
+  {% endif %}
+
+  </form><!-- /.product-control -->
+
+  </div>
+</div>
+
+
+{% assign image = null %}
+{% assign bundle_component = null %}
+{% assign card_class = null %}

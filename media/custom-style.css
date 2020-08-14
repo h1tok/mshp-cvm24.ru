@@ -1,0 +1,66 @@
+.phone-title {
+font-size: 13px;
+color: #999;
+padding-bottom: 2px;
+padding-top: 2px;
+}
+
+.phone-number {
+font-size: 14px;
+color: #484848;
+font-weight: 600;
+margin: 2px;
+}
+
+
+.top-menu-ul{
+display: inline-block;
+}
+
+
+.top-panel__region-time {
+color: white;
+display: inline-block;
+padding-left: 15px;
+margin: 0px 10% 0px 0px;
+}
+
+.top-panel__red{
+display: inline-block;
+background: #e32619;
+width: 100%;
+}
+
+.top-panel__account{
+display: inline-block;
+margin: 0px 0px 0px 10%;
+}
+
+@media (max-width: 1195px){
+
+  .top-panel__account{
+  display:none;
+  }	
+}
+
+@media (max-width: 931px){
+
+  .top-panel__region-time{
+  display:none;
+  }
+  .top-menu-ul{
+  display: block;
+}
+}
+
+@media (max-width: 620px){
+
+  .top-menu-ul{
+  display:none;
+  }
+}
+
+
+
+
+

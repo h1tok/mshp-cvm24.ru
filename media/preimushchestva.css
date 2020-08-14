@@ -1,0 +1,76 @@
+.premrow {
+display: -webkit-box;
+display: flex;
+position: relative;
+flex-wrap: wrap;
+margin-bottom: 16px;
+justify-content: center;
+}
+
+.premimg { 
+max-height: 32px;
+max-width: 32px;
+border: none;
+outline: none;  
+}
+
+.premblock {
+max-width: 40px;
+height: 40px;
+min-width: 32px;
+min-height: 32px;
+-webkit-box-flex: 0;
+flex: 0 0 64px;
+display: -webkit-box;
+display: flex;
+-webkit-box-align: center;
+align-items: center;
+-webkit-box-pack: center;
+justify-content: center;
+padding: 0px 8px 0px 8px;
+margin: 0px 4px 0px 4px;
+}
+
+.premtitle {
+max-height: 255px;
+margin: 0px 12px 0px 4px;
+overflow: hidden;
+display: -webkit-box;
+display: flex;
+-webkit-box-orient: vertical;
+-webkit-box-direction: normal;
+flex-direction: column;
+max-width: 70%;
+-webkit-box-flex: 1;
+flex: 1 0 auto;
+line-height: 20px;
+font-size: 12px;
+padding: 10px 0px 10px 0px;
+}
+
+.premlink {
+-webkit-box-flex: 0;
+flex: 0 1 auto;
+margin-right: 8px;
+margin-bottom: 8px;
+color: inherit;
+text-decoration: inherit;
+width: 225px;
+display: -webkit-box;
+display: flex;
+-webkit-box-pack: start;
+justify-content: flex-start;
+-webkit-box-align: center;
+align-items: center;
+position: relative;
+box-shadow: 0 1px 3px 0 #c9d3d8;
+background-color: #fff;
+border-radius: 10px;
+}
+
+@media (max-width: 768px){
+
+  .premrow{
+    display:none;
+}}
+

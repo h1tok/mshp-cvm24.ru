@@ -1,0 +1,22 @@
+<h1>{{blog.title}}</h1>
+{% paginate articles by 5 %}
+  <div class="articles-list">
+    <div class="row">
+    {% for article in articles %}
+      <div class="cell-{% if forloop.first %}12 article-preview-wrapper-first{% else %}4 cell-6-md{% endif %} cell-12-sm article-preview-wrapper">
+        {% include "article_preview", truncate_words: 40 %}
+      </div>
+    {% endfor %}
+	</div>
+  </div>
+
+  {% if paginate.parts.size > 1 %}
+    <div class="blog-toolbar toolbar at-bottom">
+      <div class="toolbar-inner">
+        <div class="pagination-wrapper">
+          {% include "pagination" %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endpaginate %}

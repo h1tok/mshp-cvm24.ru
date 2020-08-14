@@ -1,0 +1,133 @@
+{% assign display_filter = false %}
+
+{% include "collection_filter_check" %}
+
+<div class="products-list is-collection">
+  {% if products.size > 0 %}
+	<div id="grid" class="row">
+    {% for product in products %}
+      <div class="product-card-wrapper in-collection cell-3 cell-4-md cell-6-xs cell-12-mc">
+        {% include 'product_card' %}
+      </div>
+    {% endfor %}
+    </div>
+  {% comment %}
+	<div id="list" style="display: none;">
+    {% for product in products %}
+      <div class="product-card-list-wrapper in-collection">
+        <div class="row">
+        	<div class="cell-3 cell-3-md cell-6-xs">
+                <a href="{{ product.url }} "class="product-card-photo image-container is-square " title="{{ product.title }}">
+                  <img src="{{ product.first_image.medium_url }}" title="{{ product.title }}" alt="{{ product.title }}" class="product-card-image">
+                </a>          		
+          	</div>
+        	<div class="cell-6 cell-6-md cell-6-xs">
+                <div class="product-title">  
+                {% if bundle_component and bundle_component.product.variants.size > 1 %}
+                  {{  bundle_component.product.title }} ({{ bundle_component.variant.title }})
+                {% else %}
+                  <a href="{{ product.url }}" class="product-link">{{ product.title }}</a>
+                {% endif %}
+                </div>
+                <div class="product-card-price product-prices in-card hidden shown-md">
+                  <div class="price in-card">
+                    {% if bundle_component %}
+                    {% if bundle_component.is_free %}
+                    {{ messages.bundle_is_free }}
+                    {% else %}
+                    {{ bundle_component.quantity }} × {{ bundle_component.variant.price | money }}
+                    {% endif %}
+
+                    {% elsif product.price_varies? %}
+                    {{ messages.label_from | downcase }}
+                    {{ product.price_min | money }}
+                    {% else %}
+                    {{ product.price | money }}
+                    {% endif %}
+
+                  </div>
+                </div>              
+              <div class="short_description">{{product.short_description}}</div>
+              <p><a href="{{ product.url }}" class="hidden-sm">Посмотреть детальней</a></p>
+          	</div>
+        	<div class="cell-3 hidden-md text-right">
+                <div class="product-card-price product-prices in-card">
+                  <div class="price in-card">
+                    {% if bundle_component %}
+                    {% if bundle_component.is_free %}
+                    {{ messages.bundle_is_free }}
+                    {% else %}
+                    {{ bundle_component.quantity }} × {{ bundle_component.variant.price | money }}
+                    {% endif %}
+
+                    {% elsif product.price_varies? %}
+                    {{ messages.label_from | downcase }}
+                    {{ product.price_min | money }}
+                    {% else %}
+                    {{ product.price | money }}
+                    {% endif %}
+
+                  </div>
+                </div>
+                <form class="product-cart-control {{ hidden_form }} {% comment %}{% unless product.variants.size > 1 %}card-control-oneline{% endunless %}{% endcomment %}" method="post" action="{{ cart_url }}" data-product-id="{{ product.id }}">
+
+                  <input type="hidden" name="variant_id" value="{{ product.variants.first.id }}">
+                  <input type="hidden" name="quantity" class="counter-input input-number input-field" value="1"/>
+
+
+                  <a class="button is-secondary" href="{{ product.url }}" data-quick-view="{{ product.id }}">Быстрый просмотр</a>
+                  <!-- Если больше 1 модификации -->
+                  {% if product.variants.size > 1 %}
+                  <a class="button is-primary" href="#" data-choose-options="{{ product.id }}"><span class="button-text">Выберите варианты</span></a>
+                  {% else %}
+                  {% if product.available %}
+                  <!-- больше 0 -->
+                  <button class="button button-buy is-primary" type="submit" data-item-add>
+                    <span class="button-text">
+                      {{ messages.button_to_cart }}
+                    </span>
+                  </button>
+                  {% else %}
+                  <!-- не больше 0 -->
+                  {% if settings.product_not_available contains 'shown' %}
+                  <button class="button button-buy is-primary" type="submit" data-item-add><span class="button-text">
+                    {{ messages.button_to_cart }}</span>
+                  </button>
+                  {% else %}
+                  <a class="button button-buy is-primary " href="{{ product.url }}" title='{{ product.title }}'>
+                    <span class="button-text">{{ messages.button_more }}</span>
+                  </a>
+                  {% endif %}
+                  {% endif %}
+                  {% endif %}
+
+                </form><!-- /.product-control -->          		
+          	</div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  {% endcomment %}
+
+  {% elsif filter_selected %}
+
+    <div class="cell-12">
+      <div class="notice is-warning">
+        {{ messages.collection_filters_is_empty }}
+      </div>
+
+      <a href="{{ collection.url }}" class="button is-secondary filter-empty">
+        {{ messages.button_reset_filters }}
+      </a>
+    </div>
+
+  {% else %}
+
+    <div class="cell-12">
+      <div class="notice is-info">
+        {{ messages.collection_is_empty }}
+      </div>
+    </div>
+
+  {% endif %}
+</div>

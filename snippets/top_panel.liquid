@@ -1,0 +1,34 @@
+<div class="top-panel js-top-panel-fixed flex-between">
+  <div class="top-menu-wrapper">
+
+<div class="top-panel__red">
+
+<div class="top-panel__region-time">
+{{blocks.top-panel__region-time.content}}
+</div>
+
+<div class="top-menu-ul">
+{% include "menu", source_type: 'menu', source_handle: 'main-menu' , menu_class: 'top-menu'%}
+</div>
+
+<div class="top-panel__account">
+<a style="color: white;" href="/client_account/login{% if language.not_default? %}?lang={{ language.locale }}{% endif %}">{{blocks.top-panel__account.content}}</a> 
+</div>
+  
+  </div>
+    
+    
+      </div>
+</div>       
+    
+      
+    
+    
+   
+
+
+
+
+
+    
+    

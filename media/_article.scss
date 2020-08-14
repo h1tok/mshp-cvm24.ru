@@ -1,0 +1,108 @@
+.article-container-wrapper {padding-right: 1rem; padding-left: 1rem;
+	.container {position: relative;}
+@include media-min(sm) {
+	.share-buttons {position: absolute; left: 25px; top: 0; margin: 0;}
+}
+}
+.article {
+	&-block-image {margin: -30px 0 32px; text-align: center; background: #fafafa;}
+	&-container {padding-right: 25px; padding-left: 25px; max-width: 700px; margin: 0 auto;}
+	h1 {margin-bottom: 2rem; margin-top: 0.75rem; color: #484848; font-size: 28px;}
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+	.article-wrapper .share-buttons {width: 15%;}
+	.article-container {padding: 0; margin: 0 0 0 20%;}
+}
+//=====================
+//
+//=====================
+
+.article-preview-wrapper {
+  & + & {
+    margin-top: 1rem;
+  }
+}
+
+.article-preview {display: block;}
+
+.article-preview-image-wrapper {
+  position: relative;
+}
+
+.blog {
+  & .article-preview {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+
+    @include media-max(sm) {
+      display: block;
+    }
+  }
+
+  & .article-preview-image-wrapper {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 40%;
+    flex: 1 0 40%;
+    max-width: 100%;
+  }
+}
+
+.article-preview-caption {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 400px;
+  flex: 1 1 400px;
+  max-width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: column;
+  flex-flow: column;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.article-preview-link {
+
+  @include link-decor($color-link-primary, $color-link-primary-hover);
+}
+
+.article-tags-header {
+
+  @include media-max(xs) {
+    margin-top: 1rem;
+  }
+}
+
+.comments-wrapper,
+.article-preview-toolbar,
+.comments-count {
+  & .button-text {
+
+    @include icon($fa-comments);
+  }
+}
+
+.tag-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  padding-left: 0;
+}
+
+.tag-title {
+  @extend .tag-link;
+}
+
+#comment_form {
+  display: none;
+}

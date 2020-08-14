@@ -1,0 +1,149 @@
+{% assign show_submit = show_submit | default: false %}
+{% assign show_options = show_options | default: true %}
+
+{% assign filter_active = false %}
+{% assign filters_active = false %}
+
+{% assign display_filter = false %}
+{% include "collection_filter_check" %}
+{% assign hide_class = display_filter | default: "hidden" | replace: 'true','' %}
+<form class="filter {{ filter_class }} {{ hide_class }}" action="{{ collection.url }}" method="get" data-filter="{{ filter_class }}">
+
+  <div class="filter-heading">
+    {{ messages.filter_heading }}
+  </div>
+
+  {% if show_options %}
+    {% for option in collection.options %}
+      {% assign filter_active = false %}
+
+      {% for value in option.values %}
+        {% if value.selected %}
+          {% assign filters_active = true %}
+          {% assign filter_active = true %}
+        {% endif %}
+      {% endfor %}
+
+      <div class="filter" data-filter-section="{{ filter_active }}">
+
+        <div class="filter-control">{{ option.title }}</div>
+
+        <div class="filter-items">
+          
+          <ul>
+            {% for value in option.values %}
+              {% assign is_checked = value.selected | default: '' | replace: 'true', 'checked' %}
+
+              <li class="filter-item">
+                <label>
+                  <input class="filter-field-input" type="checkbox" value="{{ value.id }}" {{ is_checked }} name="options[{{ option.id }}][]" />
+
+                  <span class="filter-field-marker {{ is_checked }}"></span>
+                  <span class="filter-field-caption">{{ value.title }}</span>
+                </label>
+              </li>
+            {% endfor %}
+          </ul>
+          
+        </div>
+
+      </div>
+
+    {% endfor %}
+  {% endif %}
+
+  {% for property in collection.properties %}
+    {% assign filter_active = false %}
+
+    {% if property.is_numeric? %}
+
+      {% assign min_val = property.characteristics.first.name | round: 0 %}
+      {% assign max_val = property.characteristics.first.name | round: 0 %}
+
+      {% for characteristic in property.characteristics %}
+        {% assign val = characteristic.name | round: 0 %}
+        {% if val < min_val %}
+          {% assign min_val = val %}
+        {% endif %}
+
+        {% if val > max_val %}
+          {% assign max_val = val %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    {% if property.current? or property.lt_value or property.gt_value %}
+      {% assign filters_active = true %}
+      {% assign filter_active = true %}
+    {% endif %}
+
+    <div class="filter" data-filter-section="{{ filter_active }}">
+
+      <div class="filter-control">{{ property.title }}</div>
+
+      <div class="filter-items">
+
+        {% unless property.is_numeric? %}
+          <ul>
+            {% for characteristic in property.characteristics %}
+              {% assign is_checked = characteristic.current? | default: '' | replace: 'true', 'checked' %}
+
+              <li class="filter-item">
+                <label>
+                  <input class="filter-field-input" type="checkbox" value="{{ characteristic.id }}" {{ is_checked }} name="characteristics[]"/>
+
+                  <span class="filter-field-marker {{ is_checked }}"></span>
+                  <span class="filter-field-caption">{{ characteristic.title }}</span>
+                </label>
+              </li>
+            {% endfor %}
+          </ul>
+
+        {% else %}
+          <div class="filter-items">
+            <div class="filter-item is-range-slider" data-filter-section-item>
+              <div data-min="{{ min_val }}" data-max="{{ max_val }}"
+                data-from="{{ property.gt_value }}" data-to="{{ property.lt_value }}"
+                data-range-slider="{{ property.id }}">
+              </div>
+            </div>
+          </div>
+        {% endunless %}
+
+      </div>
+
+    </div>
+
+  {% endfor %}
+
+  <div class="filter-controls">
+    <a href="{{ collection.url }}" class="filter-clear button is-secondary is-sfilter-clear" data-filter-clear>
+      {{ messages.button_reset_filters }}
+    </a>
+  </div>
+
+  {% if order %}
+    <input type="hidden" name="order" value="{{ order }}" />
+  {% endif %}
+
+  {% if page_size %}
+    <input type="hidden" name="page_size" value="{{ page_size }}"/>
+  {% endif %}
+
+  {% if language.not_default? %}
+    <input type="hidden" name="lang" value="{{ language.locale }}"/>
+  {% endif %}
+
+  {% if search.query != '' %}
+    <input type="hidden" name="q" value="{{ search.query }}"/>
+  {% endif %}
+
+</form>
+{% assign heading = null %}
+{% assign show_submit = null %}
+{% assign filter_class = null %}
+
+{% assign filter_active = null %}
+{% assign filters_active = null %}
+
+{% assign is_checked = null %}

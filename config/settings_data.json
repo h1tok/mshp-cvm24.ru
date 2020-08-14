@@ -1,0 +1,41 @@
+{
+  "common_js_version": "v2",
+  "current": "custom",
+  "presets": {
+    "custom": {
+      "color_background_primary": "#ffffff",
+      "color_text_primary": "#262938",
+      "color_link_primary": "#e32619",
+      "color_link_primary_hover": "#bd241a",
+      "color_border_primary": "#d3dee7",
+      "color_background_secondary": "#e32619",
+      "color_text_secondary": "#ffffff",
+      "color_link_secondary": "#ffffff",
+      "color_link_secondary_hover": "#ededf2",
+      "color_border_secondary": "#d3dee7",
+      "body_background_color": "#ffffff",
+      "body_background_type": "tile",
+      "font_family_primary": "google:Open+Sans",
+      "font_size_primary": "14px",
+      "logotype_type": "image",
+      "logotype_font_family": "google:Open+Sans",
+      "logotype_font_size": "40px",
+      "phone": "edited_block",
+      "email": "from_settings",
+      "social_media_hide": "1",
+      "promo_slider_auto": "1",
+      "promo_slider_auto_time": "4",
+      "category_description_position": "after_products",
+      "product_not_available": "shown",
+      "product_share_hide": "1",
+      "product_compare_hide": "1",
+      "link_slots_json": "https://205.floks.net/time-delivery.json",
+      "slots_hours": "09:00 - 12:00;12:00 - 15:00;15:00 - 18:00;18:00 - 21:00",
+      "slots_hour_next": "11",
+      "_settings_version": 1589811517.9300578
+    }
+  },
+  "remote_theme_id": 411,
+  "source_account_id": null,
+  "theme_title": "2019-005"
+}

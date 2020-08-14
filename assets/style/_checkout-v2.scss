@@ -1,0 +1,260 @@
+
+/* titles */
+.co-title {
+  color: $color-text-primary;
+}
+
+.co-title--h2 {
+  font-size: $font-size-h2;
+}
+
+/* buttons */
+.co-button {
+  font-size: 1rem;
+
+  &, &[type="submit"],
+  &[name="commit"],
+  &[data-method="delete"],
+  &.co-button--small {
+    @extend .button;
+
+    @include button-variant($color-link-primary, $color-link-primary-hover);
+  }
+
+  &#get_pdf_receipt,
+  &#use_max_bonus_points {
+    @include button-variant($gray-light, $color-link-primary-hover);
+  }
+
+  &.co-button--small {
+    padding: calc(0.25rem + 1px) 0.75rem;
+    white-space: initial;
+  }
+}
+
+.co-button--link,
+.co-button--password_recover {
+  @include link-decor($color-link-primary, $color-link-primary-hover);
+}
+
+.co-modal-button {
+  @extend .button;
+}
+
+/* links */
+.co-link,
+.link {
+  @include link-decor($color-link-primary, $color-link-primary-hover);
+}
+
+/* input */
+
+.co-input-field,
+.co-input--file .co-input-wrapper {
+  border-radius: 0;
+}
+
+.co-input-select {
+  background-color: transparent;
+}
+
+.co-toggable_field-input {
+  color: $color-text-primary;
+
+  span {
+    border-radius: 50% !important;
+
+    &:after {
+      color: edit-color($color-link-primary) !important;
+    }
+  }
+}
+
+.co-input-description {
+  color: $color-text-primary;
+
+  a {
+    @include link-decor;
+  }
+}
+
+.co-bonus_points-maximum_points {
+  color: $color-text-primary;
+}
+
+.co-bonus_points-submit {
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+/* tabs */
+
+.co-tabs-controls {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 260px;
+  flex: 1 0 260px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.co-tabs-node {
+  @extend .button;
+  @include button-variant($gray-light, $color-link-primary-hover);
+
+  margin: 0 0.25rem;
+  border-radius: 0 !important;
+
+  &--active {
+    background-color: $color-link-primary-hover;
+    color: edit-color($color-link-primary-hover);
+  }
+}
+
+/* prices */
+.co-price {
+  font-size: 1rem;
+}
+
+/* basket */
+.co-basket_subtotal {
+  margin-bottom: 0.5rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.co-basket_total-price {
+  font-size: $font-size-medium;
+}
+
+/* forms */
+.co-delivery_adress-form {
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+
+  .co-input {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+}
+
+/* modals */
+.co-modal {
+  background-color: $color-background-primary;
+  border: 1px solid $color-border-primary;
+}
+
+.co-modal-close {
+  @include link-decor;
+}
+
+.js-modal-toggler {
+  @include link-decor;
+}
+.co-input--error {
+	.co-input-field {border-color: red;}
+	.co-toggable_field-input--checkbox input + span {border-color: red;}
+}
+
+/** order */
+.co-order-state {
+  border-radius: 0;
+}
+
+.co-section--checkout_order {
+  padding-bottom: 2rem;
+}
+
+.co-sidebar {
+  box-shadow: none;
+}
+
+.co-button.co-button--checkout {border-radius: 5px; color: white; font-weight: 500; padding: 1.4em 1.7em; float: right;}
+.co-checkout-order_form {
+	.lnk_back_cart {display: inline-block; margin-top: 18px;
+		&:before {content: "\f053"; font: 12px FontAwesome; margin-right: 5px;}
+	}
+}
+@include media-min(sm) {
+	.checkout2_wrapper {position: relative; overflow: hidden; margin-top: -30px; border-bottom: 1px solid #e1e1e1;}
+    .checkout2_wrapper::after {
+        content: ""; display: block; width: 300%;
+        position: absolute; left: 50%; top: 0; bottom: 0; z-index: -1;
+        background: #fafafa; border-left: 1px solid #e1e1e1;
+    }
+	.co-checkout-order_form {padding-right: 65px;}
+	.co-sidebar .co-checkout-block--padded {padding-left: 6.5%;}
+}
+@include media-max(sm) {
+  .co-sidebar {background: #fafafa; border-bottom: 1px solid #e1e1e1;}
+}
+.co-sidebar {
+	.co-basket_item-image_container {-ms-flex: 0 1 65px; flex: 0 1 65px; border: 1px rgba(0,0,0,0.1) solid;}
+	.co-basket_item-image img {max-width: 75%; max-height: 75%;}
+	.co-basket_item {position: relative; margin: 1rem 0 0;}
+	.co-basket_item-total {font-size: 0;}
+	.co-price--current {font-size: 14px; font-weight: 500;}
+	.co-basket_item-count {font-size: 12px; font-weight: 500;
+    line-height: 1.75em;
+    white-space: nowrap;
+    text-align: center;
+    border-radius: 1.75em;
+    background-color: rgba(114,114,114,0.9);
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    min-width: 1.75em;
+    height: 1.75em;
+    padding: 0 0.58333em;
+    position: absolute;
+    left: 57px;
+    top: -0.75em;
+    z-index: 3;}
+	.co-basket_subtotal-list {padding-top: 1.5rem;}
+	.co-basket_item-list {max-height: 300px; overflow: hidden; padding-bottom: 2rem;
+		&:hover {overflow-y: auto;}
+	}
+	.co-basket_total-price {font-size: 24px; font-weight: 500; letter-spacing: -0.04em; line-height: 1em; color: #323232;}
+}
+
+/*timers*/
+
+.fancybox-enabled body {height: auto;}
+.timers-link {
+  text-align: center;
+  & a {
+    color: $color-link-primary;
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: initial;
+    border-bottom: 1px dashed $color-link-primary;
+  	&:hover, &:active, &:focus {
+      color: $color-link-primary;
+      border-bottom-color: transparent;
+    }
+  }
+}
+#timers {max-width: 80%; width: 865px; padding: 20px 30px;}
+.fancybox-close-small, .fancybox-close-small:after {outline: none!important;}
+.timers-slider {
+	.timers-arrows {margin-bottom: 20px;}
+	.swiper-button-prev, .swiper-button-next {position: static; left: auto; top: auto; margin: 0; width: 50px; height: 34px; text-align: center; font-size: 24px; line-height: 30px; margin-right: 10px; background: #f7f7fc; display: inline-block;
+		&:hover {background: #ebebeb;}
+	}
+	.swiper-button-prev:before {content:"‹";}
+	.swiper-button-next{margin-right: 30px; &:before {content:"›";}}
+	.day_week {font-size: 15px; margin-bottom: 10px;}
+	ul {margin: 0; padding: 0; list-style: none;}
+	li a, li a:visited {display: block; margin-bottom: 3px; padding: 7px 0; line-height: 1.6; background: #f5f5f5; font-size: 13px; text-align: center; -webkit-transition: background .15s ease; transition: background .15s ease; color: #000;
+		&:hover {background: $color-link-primary; color: #fff; font-weight: bold;}
+	}
+	.limit {opacity: 0.5; a {cursor: default; background: #f5f5f5!important; font-weight: normal!important; color: #000!important;}}
+}
+.js-timers-info {
+  margin: -5px 0 10px; 
+  font-size: 12px;
+  text-align: center;
+}

@@ -1,0 +1,37 @@
+<script type="text/template" data-modal="mobile-sidebar">
+<div class="sidebar">
+
+  <div class="sidebar-block">
+
+    <div class="sidebar-block-content">
+      {% include "menu", source_type: 'collection', source_handle: 'all', menu_class: 'mobile-sidebar-menu', show_icon: false %}
+      {% include "menu", source_type: 'menu', source_handle: 'main-menu', menu_class: 'mobile-sidebar-menu' %}
+      <a class="sidebar-close" href="#site-header-sidebar">
+		<svg aria-hidden="true" focusable="false" role="presentation" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13"><path fill="currentColor" fill-rule="evenodd" d="M5.306 6.5L0 1.194 1.194 0 6.5 5.306 11.806 0 13 1.194 7.694 6.5 13 11.806 11.806 13 6.5 7.694 1.194 13 0 11.806 5.306 6.5z"></path></svg>
+      </a>      
+    </div>
+    
+  </div>
+ 
+</div>
+</script>
+
+<script type="text/template" data-modal="collection-filter">
+  <div class="sidebar">
+    <div class="sidebar-block">
+      {% include "collection_filter", filter_class: 'is-modal-filter' %}
+    </div>
+  </div>
+</script>
+
+<script type="text/template" data-modal="search-form">
+  {% include "search_widget", widget_class: 'in-search-panel' %}
+</script>
+
+<script type="text/template" data-modal="addtocart">
+        <div id="addtocart">
+            <p>{{ messages.label_added_product }}</p>
+            <a href="#" class="button ajs-close js-close">{{ messages.button_back_shop }}</a>
+            <a href="/cart_items{% if language.not_default? %}?lang={{ language.locale }}{% endif %}" class="button is-primary">{{ messages.button_link_cart }}</a>
+        </div>
+</script>

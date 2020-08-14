@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html class='' lang='ru' xml:lang='ru' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    {% include "head" %}
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <meta content='noindex, nofollow' name='robots'>
+    <meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
+
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,500,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+    {{ 'checkout2.core' | global_stylesheet_tag }}
+
+    {% include "styles" %}
+  </head>
+  <body class='adaptive fhg-body'>
+    <div class="top-panel-wrapper hidden-xs">
+      <div class="container">
+        {% include "top_panel" %}
+      </div>
+    </div>    
+    <div class="header-wrapper">
+      <div class="container">
+        {% include "header" %}
+        <div class="hidden-sm">
+          {% include "menu", source_type: 'collection', source_handle: 'all', menu_class: 'catalog-menu', show_icon: false %}
+        </div>
+      </div>
+    </div>
+
+    <div class="checkout2_wrapper">
+      <div class="content-wrapper container fhg-content">
+        <div class="page-headding-wrapper">
+          <h1 class="page-headding">
+            {% yield 'title' %}
+          </h1>
+        </div>
+
+        <div class='checkout-v2-wrapper co-section--checkout_content'>
+
+          <div class='co-section--checkout_order co-section--checkout_order_sided'>
+            {% yield 'sidebar' %}
+            {% yield %}
+          </div>
+        </div>
+      </div>
+    </div>  
+    <div class="footer-wrapper">
+      <div class="container">
+        {% include "footer" %}
+      </div>
+    </div>
+    <div style="display: none;" id="timers">
+        <div class="timers-slider" data-slider="timers-slider">
+            <div class="timers-arrows">
+                  <div data-slider-prev></div>  
+                  <div data-slider-next></div>
+                  <span class="timers-current hidden-mc"></span>
+            </div>
+          	{% comment %}{% for i in (1..31) %}
+            <div data-slider-slide>
+          		<div class="day_week">Завтра</div>
+              	<ul class="day_slots">
+                  	{% for i in (9..21) %}
+              		<li><a href="#">{% if i < 10 %}0{% endif %}{{i}}:00 - {{i|plus:2}}:00</a></li>
+                  	{% endfor %}
+              	</ul>
+          	</div>
+          	{% endfor %}{% endcomment %}
+        </div>      
+    </div>   
+    <div style="display: none;" id="timers-alert">
+        <p style="text-align: center; font-size: 16px;">Вы не выбрали временной интервал доставки</p>
+    </div>     
+  </body>
+  {% include "modals" %}
+
+  {% include "scripts" with 'checkout' %}
+</html>

@@ -1,0 +1,160 @@
+<script type="text/javascript">
+  Site = _.merge({}, Site, {
+    insales_year: '{{'now' | date: "%Y" }}', 
+    insales_month: '{{'now' | date: "%m" | minus: 1 }}', 
+    insales_day: '{{'now' | date: "%d" }}', 
+    insales_hours: '{{'now' | date: "%H" }}', 
+    insales_minutes: '{{'now' | date: "%M" }}',
+    lang: '{{language.locale}}',
+    template: '{{ template }}',
+    link_slots_json: '{{ settings.link_slots_json }}',
+    slots_hours: '{{ settings.slots_hours | strip_newlines }}',
+    slots_hour_next: '{{ settings.slots_hour_next }}',
+
+    menuConfig: {
+      'top-menu': {
+        levels: {
+          1: ['horizontal'],
+        }
+      },
+      'catalog-menu': {
+        levels: {
+          1: ['horizontal'],
+          2: ['vertical', 'drop', 'down'],
+          default: ['vertical', 'drop', 'right'],
+        }
+      },
+      'sidebar-menu': {
+        levels: {
+          default: ['vertical', 'collapse']
+        }
+      },
+      'mobile-sidebar-menu': {
+        levels: {
+          default: ['vertical', 'collapse']
+        }
+      }
+    },
+    filterConfig: {
+      'sidebar-filter': {
+        submitOnChange: false,
+        collapse: true,
+        openActive: true,
+      },
+      'is-modal-filter': {
+        collapse: true,
+        openActive: true,
+      }
+    },
+    alertifyConfig :{
+      glossary: {
+        modal: {
+          ok: '{{ messages.s_alertify-ok }}',
+          cancel: '{{ messages.s_alertify-cancel }}',
+        },
+        cart: {
+          item_added: '{{ messages.s_alertify-addcart }}',
+          item_removed: '{{ messages.s_alertify-removecart }}'
+        },
+        compares: {
+          product_added: '{{ messages.product_added_to_comparison }}',
+          product_removed: '{{ messages.product_removed_from_comparison }}',
+          overload: '{{ messages.maximum_number_of_comparable }}'
+        }
+      }
+    },
+    messages: {
+      field_name: '{{ messages.field_name }}',
+      field_phone: '{{ messages.field_phone }}',
+      field_email: '{{ messages.field_email }}',
+      field_message: '{{ messages.field_message }}',
+      label_product: '{{ messages.label_product }}',
+      label_variant: '{{ messages.label_variant }}',
+
+      preorder: '{{ messages.preorder }}',
+      button_submit: '{{ messages.button_submit }}',
+      slots_title: '{{ messages.slots_title }}',
+      slots_title_selected: '{{ messages.slots_title_selected }}',
+      back_cart: '{{ messages.back_cart }}',
+      sample_number: '{{ messages.sample_number }}',
+      world_call: '{{ messages.world_call }}'
+    }
+  });
+
+  Products.setConfig({
+    options: {
+      'Размер': 'option-button',
+      'Размер CM': 'option-button',
+      'Size': 'option-button',
+      'Size CM': 'option-button',
+      default: "option-button"
+    }  
+  });
+</script>
+
+<!-- <script src="{{ 'insales.ui.alertify.js' | asset_url }}"></script>
+<script src="{{ 'insales.ui.swiper.js' | asset_url }}"></script>
+<script src="{{ 'insales.ui.tabs.js' | asset_url }}"></script>
+<script src="{{ 'insales.ui.range-slider.js' | asset_url }}"></script>
+<script src="{{ 'insales.ui.filter.js' | asset_url }}"></script>
+<script src="{{ 'insales.ui.menu.js' | asset_url }}"></script>
+<script src="{{ 'insales.ui.forms.js' | asset_url }}"></script>
+<script src="{{ 'insales.ui.images.js' | asset_url }}"></script> -->
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/localforage/1.4.3/localforage.min.js"></script>
+<script src="{{ 'plugins.js' | asset_url }}"></script>
+<script src="{{ 'theme.js' | asset_url }}" charset="utf-8"></script>
+{% if scripts == 'checkout' %}
+<script>
+  var monthNames = ["{{messages.january}}", "{{messages.february}}", "{{messages.march}}", "{{messages.april}}", "{{messages.may}}", "{{messages.june}}", "{{messages.july}}", "{{messages.august}}", "{{messages.september}}", "{{messages.october}}", "{{messages.november}}", "{{messages.december}}"];
+  var day_week = ['{{messages.sunday}}', '{{messages.monday}}', '{{messages.tuesday}}', '{{messages.wednesday}}', '{{messages.thursday}}', '{{messages.friday}}', '{{messages.saturday}}'];
+</script>
+<script src="{{ 'checkout.js' | asset_url }}" charset="utf-8"></script>
+{% endif %}
+<script type="text/template" data-template-id="recently_view">
+
+        <div class="product-slider products-recently" data-slider="recently">
+                <div class="product-slider-heading-wrapper">
+                  <p class="product-slider-heading">{{ messages.recently_title }}</p>
+
+                  <div class="product-slider-controls" data-slider-controls>
+                    <button class="product-slider-prev" data-slider-prev></button>
+                    <button class="product-slider-next" data-slider-next></button>
+                  </div>
+                </div>
+                            <% _.forEach(products, function (product){  %>
+                            <div class="swiper-slide slide-is-recently" data-slider-slide>
+                                <div class="card_micro">
+                                            <a href="<%= product.url %>?lang=<%= Site.lang %>" class="image-container is-square card_micro-image">
+                                                <img src="<%= product.first_image.large_url %>">
+                                            </a>
+                                            <div class="card_micro-info">
+                                                <div class="product-prices in-card">
+                                                    <span class="card_micro-price"><%= Shop.money.format(product.variants[0].price) %><span>
+                                                </div>                                            
+                                                <div class="product-title"><a href="<%= product.url%>?lang=<%= Site.lang %>" class="card_micro-title"><%= product.title %></a></div>
+                                            </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                
+        </div>
+
+</script>
+
+<!-- 005 -->
+<script type="text/template" data-template-id="option-button">
+  <div class="<%= classes.option %> is-span">
+    <label class="<%= classes.label %>"><%= title %></label>
+    <div class="<%= classes.values %>">
+      <% _.forEach(values, function (value){ %>
+        <button class="<%= value.classes.all %> is-span"
+          <%= value.controls %>
+          <%= value.state %>
+        >
+          <%= value.title %>
+        </button>
+      <% }) %>
+    </div>
+  </div>
+</script>
