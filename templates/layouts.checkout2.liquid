@@ -6,6 +6,9 @@
     <meta content='noindex, nofollow' name='robots'>
     <meta content='width=device-width, initial-scale=1.0, user-scalable=no' name='viewport'>
 
+    <!--mshp-->
+    <link  href="{{ 'mshp.css' | asset_url }}" rel='stylesheet' type='text/css'>
+    <!--mshp-->
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,300,500,700&amp;subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
     {{ 'checkout2.core' | global_stylesheet_tag }}
@@ -13,6 +16,15 @@
     {% include "styles" %}
   </head>
   <body class='adaptive fhg-body'>
+    <!--mshp-->
+      <div class="preloader">
+        <svg class="preloader__image" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path fill="currentColor"
+                d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z">
+          </path>
+        </svg>
+      </div>
+    <!--mshp-->
     <div class="top-panel-wrapper hidden-xs">
       <div class="container">
         {% include "top_panel" %}
@@ -75,4 +87,7 @@
   {% include "modals" %}
 
   {% include "scripts" with 'checkout' %}
+  <!--mshp-->
+   <script src="{{ 'mshp-checkout.js' | asset_url }}" charset="utf-8"></script>
+  <!--mshp-->
 </html>

@@ -1,0 +1,101 @@
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    /* фоновый цвет */
+    background: #e0e0e0;
+    z-index: 1001;
+}
+
+.preloader__image {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 70px;
+    height: 70px;
+    margin-top: -35px;
+    margin-left: -35px;
+    text-align: center;
+    animation: preloader-rotate 2s infinite linear;
+}
+
+@keyframes preloader-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loaded_hiding .preloader {
+    transition: 0.3s opacity;
+    opacity: 0;
+}
+
+.loaded .preloader {
+    display: none;
+}
+
+a.mshp-registration {
+    background: #ffffff;
+    width: 45%;
+    border-radius: 4px;
+    border: 1px solid #b2b2b2;
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    color: #404040;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+a.mshp-forgotten {
+    position: relative;
+    margin:3% auto 0 auto;
+    border-bottom: 1px dashed;
+}
+
+.mshp-orders-table-top {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ccc;
+    color: #b8b8b8;
+    font-weight: bold;
+}
+
+.mshp-orders-table-top-one {
+    display: inline;
+}
+
+.mshp-orders-table-top-two {
+    display: inline;
+    float: right;
+}
+
+.mshp-table-row {
+    border-bottom: 1px solid #b8b8b8;
+    padding: 10px 20px;
+    color: #000;
+    display: flex;
+}
+
+.mshp-table-row-one {
+    width: 80%;
+    display: inline-block;
+}
+
+.mshp-table-row-two {
+
+}
+
