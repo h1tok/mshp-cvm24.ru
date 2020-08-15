@@ -67,6 +67,16 @@ a.mshp-forgotten {
     border-bottom: 1px dashed;
 }
 
+a.mshp-logout {
+    position: fixed;
+    width: 90%;
+    text-align: center;
+    top: 90%;
+    margin-right: 10%;
+    background: white;
+    padding: 10px;
+}
+
 .mshp-orders-table-top {
     padding: 10px 20px;
     border-bottom: 1px solid #ccc;
@@ -91,11 +101,13 @@ a.mshp-forgotten {
 }
 
 .mshp-table-row-one {
-    width: 80%;
+    width: 70%;
     display: inline-block;
 }
 
 .mshp-table-row-two {
-
+    width: 30%;
+    display: inline-block;
+    text-align: right;
 }
 

@@ -30,7 +30,6 @@ if(typeof gets['mobile'] !== 'undefined') {
         $(".footer-wrapper").remove();
         $(".top-panel-wrapper.hidden-xs").remove();
         $(".co-login.co-login--social_login.co-checkout-block--padded").remove();
-        $("a").remove();
 
         var timerId = setInterval(() =>  $("#jivo-iframe-container").remove(), 10);
         setTimeout(() => { clearInterval(timerId); }, 3000);
@@ -56,6 +55,7 @@ if(typeof gets['mobile'] !== 'undefined') {
         var a = document.referrer;
 
         if(url.indexOf('client_account/login?mobile=Y') !== -1) {
+            $("a").remove();
 
             $('<a href="/client_account/contacts/new?mobile=Y" type="button" class="mshp-registration">Регистрация</a>').insertAfter(".co-button.co-form-button.js-co-login-submit");
             $('<a href="/client_account/password/change?mobile=Y" class="mshp-forgotten">Забыли пароль?</a>').insertAfter(".mshp-registration");
@@ -71,6 +71,8 @@ if(typeof gets['mobile'] !== 'undefined') {
             });
 
         }else if(url.indexOf('client_account/password/change?mobile=Y') !== -1){
+            $("a").remove();
+
             $('.co-button.co-form-button.js-co-login-submit').css({
                 'background': '#fa4324',
                 'padding-top': '0.6rem',
@@ -78,6 +80,8 @@ if(typeof gets['mobile'] !== 'undefined') {
                 'border-radius': '4px'
             });
         }else if(url.indexOf('client_account/contacts/new?mobile=Y') !== -1){
+            $("a").remove();
+
             $('#client_language_id').closest('.co-input.co-input--select.co-input--language.co-input--nested').css('display', 'none');
 
             $('.co-button.co-form-button.js-co-login-submit').text('Зарегистрироваться');
@@ -97,32 +101,34 @@ if(typeof gets['mobile'] !== 'undefined') {
 
             if (elements.length > 0) {
                 var html_orders = '<div class="co-checkout-block--padded"><div class="mshp-orders-table-top">';
-                html_orders += '    <div class="mshp-orders-table-top-one">Номер и дата заказа</div>';
+                html_orders += '    <div class="mshp-orders-table-top-one">Дата и номер заказа</div>';
                 html_orders += '    <div class="mshp-orders-table-top-two">Цена</div>';
-                html_orders += '</div></div>';
+                html_orders += '</div>';
 
                 for (var i = 0; i < elements.length; i++) {
                     if(elements[i].getAttribute('data-title') == 'Дата оформления'){
-                        //html_orders += '<div class="mshp-table-row">';
-                        //html_orders += '<div class="mshp-table-row-one"><b>';
-                        //html_orders += elements[i].innerHTML;
-                        //html_orders += '</b></div></div>';
+                        html_orders += '<div class="mshp-table-row">';
+                        html_orders += '<div class="mshp-table-row-one"><b>';
+                        html_orders += elements[i].innerHTML;
                     }
 
                     if(elements[i].getAttribute('data-title') == 'Номер заказа'){
-                        //html_orders += ' № ' + elements[i].innerHTML + '</b></div></div>';
+                        html_orders += '</b><br />№ <b>' + elements[i].innerText + '</b></div>';
                     }
 
+                    if(elements[i].getAttribute('data-title') == 'Сумма заказа'){
+                        html_orders += '<div class="mshp-table-row-two"><b>';
+                        html_orders += elements[i].innerHTML + '</b></div></div>';
+                    }
 
-                    console.log(elements[i].getAttribute('data-title'));
-                    console.log(elements[i].innerHTML);
                 }
 
-                console.log(elements);
+                html_orders += '<a class="mshp-logout" href="/client_account/exit">Выход</a></div>';
 
                 $(".co-section--content").append(html_orders);
 
                 $(".co-table.co-table--to_card").closest(".co-checkout-block--padded").remove();
+                $("a.co.link").remove();
             }
         }
 
@@ -177,12 +183,11 @@ if(typeof gets['mobile'] !== 'undefined') {
             var url_history = 'client_account/login?mobile=Y';
 
             if(a.indexOf(url_history) !== -1) {
+                alert(a);
                 window.location.href = "/client_account/orders?mobile=Y";
             }else{
                 uploadOn();
             }
-        }else if(url.indexOf('client_account/contacts') !== -1){
-
         }else{
             uploadOn();
         }
